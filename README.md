@@ -1,3 +1,3 @@
-# OHIP to PolyAPI integration
+# PolyAPI to OHIP Demo
 
 Work in progress...
