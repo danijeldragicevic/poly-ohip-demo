@@ -13,11 +13,11 @@
     "type": "commonjs",
     "dependencies": {
         "polyapi": "^0.25.28",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.9.3"
+        "ts-node": "10.9.2",
+        "typescript": "5.5.4"
     },
     "devDependencies": {
-        "husky": "^9.1.6",
-        "vitest": "^4.0.18"
+        "husky": "9.1.6",
+        "vitest": "4.0.18"
     }
 }
