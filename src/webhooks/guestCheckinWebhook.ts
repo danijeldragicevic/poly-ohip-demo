@@ -2,7 +2,7 @@ import { PolyWebhook } from "polyapi";
 
 // PolyAPI configuration
 export const polyConfig: PolyWebhook = {
-    context: "demo",
+    context: "demo.ohip",
     name: "guestCheckinWebhook",
     description: "Receives guest check-in information and emits an event to trigger the guest check-in process.",
     visibility: "TENANT",
@@ -28,11 +28,6 @@ export const polyConfig: PolyWebhook = {
             },
         },
         required: ["guestName", "roomNumber", "checkInTime"],
-    },
-    eventPayload: {
-        guestName: "John Doe",
-        roomNumber: "101",
-        checkInTime: "2024-06-01T15:00:00Z",
     },
     responseStatus: 200,
     responsePayload: { message: "Guest check-in information received." },
