@@ -1,23 +1,32 @@
 {
     "name": "poly-ohip-demo",
     "description": "Demo project to test integration between the OHIP and PolyAPI",
-    "version": "1.0.0",
     "author": "Danijel Dragicevic",
     "license": "Apache-2.0",
+    "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "vitest",
         "prepare": "husky"
+    },
+    "dependencies": {
+        "polyapi": "^0.25.28",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    },
+    "devDependencies": {
+        "husky": "^9.1.6"
+    },
+    "directories": {
+        "example": "examples"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/polyapi/poly-ohip-demo.git"
     },
     "keywords": [],
     "type": "commonjs",
-    "dependencies": {
-        "polyapi": "^0.25.28",
-        "ts-node": "10.9.2",
-        "typescript": "5.5.4"
+    "bugs": {
+        "url": "https://github.com/polyapi/poly-ohip-demo/issues"
     },
-    "devDependencies": {
-        "husky": "9.1.6",
-        "vitest": "4.0.18"
-    }
+    "homepage": "https://github.com/polyapi/poly-ohip-demo#readme"
 }

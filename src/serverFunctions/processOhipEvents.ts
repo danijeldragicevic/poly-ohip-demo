@@ -2,7 +2,7 @@ import { PolyServerFunction } from "polyapi";
 
 // PolyAPI configuratoin
 export const polyConfig: PolyServerFunction = {
-    context: "ohip",
+    context: "demo.ohip",
     name: "processOhipEvents",
     description: "Process incoming OHIP events and send update to the Zoom API.",
     visibility: "TENANT",
@@ -18,14 +18,3 @@ export const polyConfig: PolyServerFunction = {
 export async function processOhipEvents(eventPayload: any): Promise<void> {
     console.log("Received OHIP event:", eventPayload);
 }
-
-//Example usage
-// processOhipEvents({
-//     eventName: "check_in",
-//     patientId: "12345",
-//     timestamp: "2024-06-01T12:00:00Z",
-//     additionalData: {
-//         clinicLocation: "Toronto General Hospital",
-//         physician: "Dr. Smith",
-//     },
-// });
