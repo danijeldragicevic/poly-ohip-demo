@@ -10,6 +10,11 @@ export const polyConfig: PolyServerFunction = {
     serverSideAsync: true,
 };
 
+/**
+ * Process incoming OHIP events and send update to the Zoom API.
+ * @param {any} eventPayload - The incoming OHIP event payload (webhook/event notification data).
+ * @returns {void}
+ */
 function processOhipEvents(eventPayload: any): void {
     console.log("Received OHIP event:", eventPayload);
 }
