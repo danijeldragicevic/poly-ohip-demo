@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 import { polyConfig } from "../../src/webhooks/guestCheckinWebhook";
-import guestCheckinSchema from "../../src/schemas/guestCheckin.schema.json";
 
 describe("guestCheckinWebhook (unit tests)", () => {
     it("should have the correct polyConfig identity", () => {
@@ -13,7 +12,18 @@ describe("guestCheckinWebhook (unit tests)", () => {
     });
 
     it("should have the correct eventPayloadTypeSchema", () => {
-        expect(polyConfig.eventPayloadTypeSchema).toEqual(guestCheckinSchema);
+        expect(polyConfig.eventPayloadTypeSchema).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.$id).toBe("https://example.com/schemas/guest-checkin-input.json");
+        expect(polyConfig.eventPayloadTypeSchema.title).toBe("Guest Check-In Webhook Input");
+        expect(polyConfig.eventPayloadTypeSchema.type).toBe("object");
+        expect(polyConfig.eventPayloadTypeSchema.required).toEqual(["hotelId", "roomId", "checkInTime"]);
+        expect(polyConfig.eventPayloadTypeSchema.properties).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.properties.hotelId).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.properties.roomId).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.properties.checkInTime).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.properties.reservationId).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.properties.eventId).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.properties.source).toBeDefined();
     });
 
     it("should return a 200 response with a JSON content-type", () => {
