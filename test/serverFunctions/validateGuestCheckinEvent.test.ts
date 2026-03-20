@@ -1,62 +1,46 @@
 import { describe, it, expect } from "vitest";
 import { validateGuestCheckinEvent } from "../../src/serverFunctions/validateGuestCheckinEvent";
 
-describe("validateGuestCheckinEvent (unit tests)", () => {
-    it("should return true for a valid payload", async () => {
+describe("validateGuestCheckinEvent", () => {
+    it("should return true for a valid payload", () => {
         const validPayload = {
             hotelId: "hotel_123",
             roomId: "room_456",
             checkInTime: "2024-06-01T15:00:00Z",
         };
-        await expect(validateGuestCheckinEvent(validPayload)).resolves.toBe(true);
+        expect(validateGuestCheckinEvent(validPayload)).toBe(true);
     });
 
-    it("should reject when hotelId is missing", async () => {
+    it("should return false when hotelId is missing", () => {
         const invalidPayload = {
             roomId: "room_456",
             checkInTime: "2024-06-01T15:00:00Z",
         };
-        await expect(validateGuestCheckinEvent(invalidPayload)).rejects.toMatchObject({
-            message: "Invalid or missing required field: hotelId. Expected a non-empty string.",
-            statusCode: 400,
-            statusText: "Bad Request",
-        });
+        expect(validateGuestCheckinEvent(invalidPayload)).toBe(false);
     });
 
-    it("should reject when roomId is missing", async () => {
+    it("should return false when roomId is missing", () => {
         const invalidPayload = {
             hotelId: "hotel_123",
             checkInTime: "2024-06-01T15:00:00Z",
         };
-        await expect(validateGuestCheckinEvent(invalidPayload)).rejects.toMatchObject({
-            message: "Invalid or missing required field: roomId. Expected a non-empty string.",
-            statusCode: 400,
-            statusText: "Bad Request",
-        });
+        expect(validateGuestCheckinEvent(invalidPayload)).toBe(false);
     });
 
-    it("should reject when checkInTime is missing", async () => {
+    it("should return false when checkInTime is missing", () => {
         const invalidPayload = {
             hotelId: "hotel_123",
             roomId: "room_456",
         };
-        await expect(validateGuestCheckinEvent(invalidPayload)).rejects.toMatchObject({
-            message: "Invalid or missing required field: checkInTime. Expected a non-empty string.",
-            statusCode: 400,
-            statusText: "Bad Request",
-        });
+        expect(validateGuestCheckinEvent(invalidPayload)).toBe(false);
     });
 
-    it("should reject when checkInTime is in an invalid format", async () => {
+    it("should return false when checkInTime is in an invalid format", () => {
         const invalidPayload = {
             hotelId: "hotel_123",
             roomId: "room_456",
             checkInTime: "invalid-date-format",
         };
-        await expect(validateGuestCheckinEvent(invalidPayload)).rejects.toMatchObject({
-            message: "Invalid checkInTime format. Expected a valid ISO-8601 date-time string.",
-            statusCode: 400,
-            statusText: "Bad Request",
-        });
+        expect(validateGuestCheckinEvent(invalidPayload)).toBe(false);
     });
 });

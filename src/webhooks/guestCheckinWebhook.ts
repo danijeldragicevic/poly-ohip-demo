@@ -65,6 +65,7 @@ export const polyConfig: PolyWebhook = {
     securityFunctions: [
         {
             id: "f83d10f9-1602-4fc0-9668-298aacaf2742",
+            message: "Invalid or missing field in event payload.",
         },
     ],
 };

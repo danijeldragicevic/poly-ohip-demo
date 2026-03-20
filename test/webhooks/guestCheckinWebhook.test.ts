@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { polyConfig } from "../../src/webhooks/guestCheckinWebhook";
 
-describe("guestCheckinWebhook (unit tests)", () => {
+describe("guestCheckinWebhook", () => {
     it("should have the correct polyConfig identity", () => {
         expect(polyConfig.context).toBe("demo.ohip");
         expect(polyConfig.name).toBe("guestCheckinWebhook");
