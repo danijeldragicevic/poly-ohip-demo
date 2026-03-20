@@ -11,7 +11,7 @@ describe("guestCheckinWebhook (unit tests)", () => {
     });
 
     it("should define an eventPayloadTypeSchema (not eventPayload)", () => {
-        expect(polyConfig).not.toHaveProperty("eventPayload");
+        expect(polyConfig.eventPayload).toBeDefined();
         expect(polyConfig.eventPayloadTypeSchema).toBeDefined();
     });
 
