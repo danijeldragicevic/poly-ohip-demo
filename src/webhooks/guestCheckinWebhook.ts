@@ -62,5 +62,9 @@ export const polyConfig: PolyWebhook = {
         trim: false,
         normalizeTags: false,
     },
-    securityFunctions: [],
+    securityFunctions: [
+        {
+            id: "f83d10f9-1602-4fc0-9668-298aacaf2742",
+        },
+    ],
 };

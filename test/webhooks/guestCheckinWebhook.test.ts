@@ -36,9 +36,9 @@ describe("guestCheckinWebhook (unit tests)", () => {
         expect(polyConfig.responsePayload).toBeDefined();
     });
 
-    it("should have no security functions defined", () => {
+    it("should have one security function defined", () => {
         expect(polyConfig.securityFunctions).toBeDefined();
-        expect(Array.isArray(polyConfig.securityFunctions)).toBe(true);
-        expect(polyConfig.securityFunctions.length).toBe(0);
+        expect(polyConfig.securityFunctions.length).toBe(1);
+        expect(polyConfig.securityFunctions[0].id).toBe("f83d10f9-1602-4fc0-9668-298aacaf2742");
     });
 });
