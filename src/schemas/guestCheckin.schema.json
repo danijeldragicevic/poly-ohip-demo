@@ -1,0 +1,74 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/schemas/ohip-reservation-checkin.json",
+    "title": "OHIP Reservation Check-In Event",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["data"],
+    "properties": {
+        "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["newEvent"],
+            "properties": {
+                "newEvent": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "metadata",
+                        "moduleName",
+                        "eventName",
+                        "primaryKey",
+                        "timestamp",
+                        "hotelId",
+                        "publisherId",
+                        "actionInstanceId",
+                        "detail"
+                    ],
+                    "properties": {
+                        "metadata": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": ["offset", "uniqueEventId"],
+                            "properties": {
+                                "offset": { "type": "integer", "minimum": 0 },
+                                "uniqueEventId": { "type": "string", "minLength": 1 }
+                            }
+                        },
+                        "moduleName": {
+                            "type": "string",
+                            "enum": ["Reservation", "RESERVATION"]
+                        },
+                        "eventName": {
+                            "const": "CHECK IN"
+                        },
+                        "primaryKey": { "type": "string", "minLength": 1 },
+                        "timestamp": { "type": "string" },
+                        "hotelId": { "type": "string", "minLength": 1 },
+                        "publisherId": { "type": "string", "minLength": 1 },
+                        "actionInstanceId": { "type": "string", "minLength": 1 },
+                        "detail": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "required": ["elementName"],
+                                "properties": {
+                                    "elementName": { "type": "string", "minLength": 1 },
+                                    "oldValue": { "type": ["string", "null"] },
+                                    "newValue": { "type": ["string", "null"] },
+                                    "scopeFrom": { "type": ["string", "null"] },
+                                    "scopeTo": { "type": ["string", "null"] },
+                                    "elementType": { "type": ["string", "null"] },
+                                    "elementRole": { "type": ["string", "null"] },
+                                    "elementSequence": { "type": ["integer", "null"] }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

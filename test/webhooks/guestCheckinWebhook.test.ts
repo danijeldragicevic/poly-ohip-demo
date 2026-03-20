@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { polyConfig } from "../../src/webhooks/guestCheckinWebhook";
+import guestCheckinSchema from "../../src/schemas/guestCheckin.schema.json";
 
 describe("guestCheckinWebhook (unit tests)", () => {
     it("should have the correct polyConfig identity", () => {
@@ -8,23 +9,11 @@ describe("guestCheckinWebhook (unit tests)", () => {
         expect(polyConfig.method).toBe("POST");
         expect(polyConfig.visibility).toBe("TENANT");
         expect(polyConfig.slug).toBe("devdan");
+        expect(polyConfig.requirePolyApiKey).toBe(true);
     });
 
-    it("should define an eventPayloadTypeSchema (not eventPayload)", () => {
-        expect(polyConfig).not.toHaveProperty("eventPayload");
-        expect(polyConfig.eventPayloadTypeSchema).toBeDefined();
-    });
-
-    it("should require guestName, roomNumber, and checkInTime in the event payload schema", () => {
-        const schema = polyConfig.eventPayloadTypeSchema as Record<string, any>;
-        expect(schema.type).toBe("object");
-        expect(schema.required).toContain("guestName");
-        expect(schema.required).toContain("roomNumber");
-        expect(schema.required).toContain("checkInTime");
-        expect(schema.properties.guestName.type).toBe("string");
-        expect(schema.properties.roomNumber.type).toBe("string");
-        expect(schema.properties.checkInTime.type).toBe("string");
-        expect(schema.properties.checkInTime.format).toBe("date-time");
+    it("should have the correct eventPayloadTypeSchema", () => {
+        expect(polyConfig.eventPayloadTypeSchema).toEqual(guestCheckinSchema);
     });
 
     it("should return a 200 response with a JSON content-type", () => {

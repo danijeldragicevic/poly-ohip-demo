@@ -1,4 +1,5 @@
 import { PolyWebhook } from "polyapi";
+import guestCheckinSchema from "../schemas/guestCheckin.schema.json";
 
 // PolyAPI configuration
 export const polyConfig: PolyWebhook = {
@@ -10,25 +11,7 @@ export const polyConfig: PolyWebhook = {
     requirePolyApiKey: true,
     subpath: "guest-checkin",
     slug: "devdan",
-    eventPayloadTypeSchema: {
-        type: "object",
-        properties: {
-            guestName: {
-                type: "string",
-                description: "Name of the guest checking in.",
-            },
-            roomNumber: {
-                type: "string",
-                description: "Room number assigned to the guest.",
-            },
-            checkInTime: {
-                type: "string",
-                format: "date-time",
-                description: "Check-in time in ISO 8601 format.",
-            },
-        },
-        required: ["guestName", "roomNumber", "checkInTime"],
-    },
+    eventPayloadTypeSchema: guestCheckinSchema,
     responseStatus: 200,
     responsePayload: { message: "Guest check-in information received." },
     responseHeaders: {
