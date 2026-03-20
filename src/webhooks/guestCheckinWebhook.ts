@@ -46,7 +46,7 @@ export const polyConfig: PolyWebhook = {
             },
             source: {
                 type: "string",
-                enum: ["OHIP_MIDDLEWARE_MOCK", "OHIP_MIDDLEWARE_REAL"],
+                enum: ["OHIP_MIDDLEWARE_MOCK", "OHIP_MIDDLEWARE_PROD"],
                 description: "Optional event source marker.",
             },
         },

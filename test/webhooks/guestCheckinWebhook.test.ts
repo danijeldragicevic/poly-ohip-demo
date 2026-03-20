@@ -24,6 +24,10 @@ describe("guestCheckinWebhook (unit tests)", () => {
         expect(polyConfig.eventPayloadTypeSchema.properties.reservationId).toBeDefined();
         expect(polyConfig.eventPayloadTypeSchema.properties.eventId).toBeDefined();
         expect(polyConfig.eventPayloadTypeSchema.properties.source).toBeDefined();
+        expect(polyConfig.eventPayloadTypeSchema.properties.source.enum).toEqual([
+            "OHIP_MIDDLEWARE_MOCK",
+            "OHIP_MIDDLEWARE_PROD",
+        ]);
     });
 
     it("should return a 200 response with a JSON content-type", () => {
