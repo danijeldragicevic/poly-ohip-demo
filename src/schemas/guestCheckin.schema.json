@@ -1,74 +1,41 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://example.com/schemas/ohip-reservation-checkin.json",
-    "title": "OHIP Reservation Check-In Event",
+    "$id": "https://example.com/schemas/guest-checkin-input.json",
+    "title": "Guest Check-In Webhook Input",
     "type": "object",
     "additionalProperties": false,
-    "required": ["data"],
+    "required": ["hotelId", "roomId", "checkInTime"],
     "properties": {
-        "data": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["newEvent"],
-            "properties": {
-                "newEvent": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "required": [
-                        "metadata",
-                        "moduleName",
-                        "eventName",
-                        "primaryKey",
-                        "timestamp",
-                        "hotelId",
-                        "publisherId",
-                        "actionInstanceId",
-                        "detail"
-                    ],
-                    "properties": {
-                        "metadata": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "required": ["offset", "uniqueEventId"],
-                            "properties": {
-                                "offset": { "type": "integer", "minimum": 0 },
-                                "uniqueEventId": { "type": "string", "minLength": 1 }
-                            }
-                        },
-                        "moduleName": {
-                            "type": "string",
-                            "enum": ["Reservation", "RESERVATION"]
-                        },
-                        "eventName": {
-                            "const": "CHECK IN"
-                        },
-                        "primaryKey": { "type": "string", "minLength": 1 },
-                        "timestamp": { "type": "string" },
-                        "hotelId": { "type": "string", "minLength": 1 },
-                        "publisherId": { "type": "string", "minLength": 1 },
-                        "actionInstanceId": { "type": "string", "minLength": 1 },
-                        "detail": {
-                            "type": "array",
-                            "minItems": 1,
-                            "items": {
-                                "type": "object",
-                                "additionalProperties": false,
-                                "required": ["elementName"],
-                                "properties": {
-                                    "elementName": { "type": "string", "minLength": 1 },
-                                    "oldValue": { "type": ["string", "null"] },
-                                    "newValue": { "type": ["string", "null"] },
-                                    "scopeFrom": { "type": ["string", "null"] },
-                                    "scopeTo": { "type": ["string", "null"] },
-                                    "elementType": { "type": ["string", "null"] },
-                                    "elementRole": { "type": ["string", "null"] },
-                                    "elementSequence": { "type": ["integer", "null"] }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        "hotelId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "OHIP hotel/property identifier."
+        },
+        "roomId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Assigned room identifier/number used to map to Zoom common area phone."
+        },
+        "checkInTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Guest check-in timestamp in ISO-8601 UTC (recommended)."
+        },
+
+        "reservationId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional but recommended for traceability."
+        },
+        "eventId": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional idempotency key from middleware/OHIP unique event id."
+        },
+        "source": {
+            "type": "string",
+            "enum": ["OHIP_MIDDLEWARE_MOCK", "OHIP_MIDDLEWARE_REAL"],
+            "description": "Optional event source marker."
         }
     }
 }
