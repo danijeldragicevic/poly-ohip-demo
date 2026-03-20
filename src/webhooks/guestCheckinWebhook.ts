@@ -29,11 +29,6 @@ export const polyConfig: PolyWebhook = {
         },
         required: ["guestName", "roomNumber", "checkInTime"],
     },
-    eventPayload: {
-        guestName: "John Doe",
-        roomNumber: "101",
-        checkInTime: "2024-06-01T15:00:00Z",
-    },
     responseStatus: 200,
     responsePayload: { message: "Guest check-in information received." },
     responseHeaders: {
