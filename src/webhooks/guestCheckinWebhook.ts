@@ -13,7 +13,7 @@ export const polyConfig: PolyWebhook = {
     slug: "devdan",
     eventPayloadTypeSchema: guestCheckinSchema,
     responseStatus: 200,
-    responsePayload: { message: "Guest check-in information received." },
+    responsePayload: { message: "Guest check-in event received." },
     responseHeaders: {
         "Content-Type": "application/json",
     },
