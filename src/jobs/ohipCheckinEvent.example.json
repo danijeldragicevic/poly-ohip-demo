@@ -1,0 +1,26 @@
+{
+    "metadata": {
+        "offset": 450912,
+        "uniqueEventId": "6ea1b2-c0de-4567-8910-mock123"
+    },
+    "moduleName": "RESERVATION",
+    "eventName": "CHECK IN",
+    "primaryKey": "2611983",
+    "detail": [
+        {
+            "dataElement": "RESERVATION_STATUS",
+            "oldValue": "RESERVED",
+            "newValue": "CHECKED IN"
+        },
+        {
+            "dataElement": "ROOM_NUMBER",
+            "oldValue": null,
+            "newValue": "23"
+        },
+        {
+            "dataElement": "GUEST_NAME",
+            "oldValue": "RESERVED",
+            "newValue": "DANIJEL DRAGICEVIC"
+        }
+    ]
+}

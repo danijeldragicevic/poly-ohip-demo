@@ -8,9 +8,11 @@
     "scripts": {
         "prepare": "husky",
         "test": "vitest",
-        "test:watch": "vitest --watch"
+        "test:watch": "vitest --watch",
+        "middleware:send": "ts-node src/jobs/ohipMiddleware.ts"
     },
     "dependencies": {
+        "dotenv": "^17.3.1",
         "polyapi": "^0.25.28",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.4"
