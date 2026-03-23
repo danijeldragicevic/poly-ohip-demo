@@ -1,0 +1,28 @@
+name: Send Test OHIP Event
+
+on:
+    workflow_dispatch:
+
+jobs:
+    send-test-event:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Send test event to webhook
+              env:
+                  OHIP_HOTEL_ID: ${{ secrets.OHIP_HOTEL_ID }}
+                  POLY_WEBHOOK_URL: ${{ secrets.POLY_WEBHOOK_URL }}
+                  POLY_WEBHOOK_API_KEY: ${{ secrets.POLY_WEBHOOK_API_KEY }}
+              run: npm run ohip:send

@@ -9,7 +9,7 @@
         "prepare": "husky",
         "test": "vitest",
         "test:watch": "vitest --watch",
-        "middleware:send": "ts-node src/jobs/ohipMiddleware.ts"
+        "ohip:send": "ts-node src/jobs/runOhipMiddleware.ts"
     },
     "dependencies": {
         "dotenv": "^17.3.1",

@@ -1,7 +1,4 @@
 import rawOhipCheckinEvent from "./ohipCheckinEvent.example.json";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 // Define OHIP event type
 type OhipCheckinEvent = {
@@ -136,33 +133,45 @@ async function postToPolyWebhook(payload: PolyCheckinEvent): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
-// Main
+// Main middleware functions
 // ---------------------------------------------------------------------------
-async function main(): Promise<void> {
-    const hotelId = (process.env.OHIP_HOTEL_ID ?? process.env.HOTEL_ID ?? "").trim();
-    if (!hotelId) {
-        throw new Error("Missing required environment variable: OHIP_HOTEL_ID (or HOTEL_ID).");
-    }
+export async function handleOhipEvent(
+    eventPayload: OhipCheckinEvent,
+    hotelId = "TEST_HOTEL",
+): Promise<PolyCheckinEvent | null> {
+    console.log("Received OHIP event:", eventPayload);
+    return transformToPolyCheckinEvent(eventPayload, hotelId);
+}
 
-    const incomingEvent = rawOhipCheckinEvent as OhipCheckinEvent;
-    const transformed = transformToPolyCheckinEvent(incomingEvent, hotelId);
+export async function processOhipEventAndSend(
+    eventPayload: OhipCheckinEvent,
+    hotelId: string,
+): Promise<PolyCheckinEvent | null> {
+    const transformed = await handleOhipEvent(eventPayload, hotelId);
 
     if (!transformed) {
         console.log("Event skipped. Not an eligible check-in event or missing ROOM_NUMBER.", {
-            moduleName: incomingEvent.moduleName,
-            eventName: incomingEvent.eventName,
-            eventId: incomingEvent.metadata?.uniqueEventId,
+            moduleName: eventPayload.moduleName,
+            eventName: eventPayload.eventName,
+            eventId: eventPayload.metadata?.uniqueEventId,
         });
-        return;
+        return null;
     }
 
     validatePolyEvent(transformed);
 
     console.log("Sending transformed event to Poly:", transformed);
     await postToPolyWebhook(transformed);
+    return transformed;
 }
 
-main().catch((error) => {
-    console.error("OHIP middleware failed:", error);
-    process.exitCode = 1;
-});
+export async function runOhipMiddlewareFromEnv(
+    incomingEvent: OhipCheckinEvent = rawOhipCheckinEvent as OhipCheckinEvent,
+): Promise<PolyCheckinEvent | null> {
+    const hotelId = (process.env.OHIP_HOTEL_ID ?? process.env.HOTEL_ID ?? "").trim();
+    if (!hotelId) {
+        throw new Error("Missing required environment variable: OHIP_HOTEL_ID (or HOTEL_ID).");
+    }
+
+    return processOhipEventAndSend(incomingEvent, hotelId);
+}
