@@ -1,7 +1,7 @@
 # PolyAPI OHIP Middleware Demo
 
-[![Deploy](https://github.com/polyapi/poly-ohip-demo/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/polyapi/poly-ohip-demo/actions/workflows/deploy.yml)
-[![Send Test OHIP Event](https://github.com/polyapi/poly-ohip-demo/actions/workflows/send-test-ohip-event.yml/badge.svg)](https://github.com/polyapi/poly-ohip-demo/actions/workflows/send-test-ohip-event.yml)
+[![Deploy](https://github.com/danijeldragicevic/poly-ohip-demo/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/danijeldragicevic/poly-ohip-demo/actions/workflows/deploy.yml)
+[![Send Test OHIP Event](https://github.com/danijeldragicevic/poly-ohip-demo/actions/workflows/send-test-ohip-event.yml/badge.svg)](https://github.com/danijeldragicevic/poly-ohip-demo/actions/workflows/send-test-ohip-event.yml)
 
 This project demonstrates an **OHIP middleware integration** built on the [PolyAPI](https://polyapi.io/) platform.
 
