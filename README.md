@@ -10,24 +10,22 @@ The goal is to normalize incoming OHIP-style check-in events and route them thro
 ## Data flow
 
 ```text
-OHIP event (raw)
-  -> ohipMiddleware job (local/GitHub Action)
-  -> normalize payload
-  -> POST /webhooks/{slug}/guest-checkin
-  -> Poly API key auth (webhook config)
-  -> validateGuestCheckinEvent (security function)
-  -> trigger: guestCheckinTrigger
-  -> processOhipEvents (server function)
-  -> backend logic (Zoom API integration - TODO)
+Raw OHIP event
+    -> ohipMiddleware (local script or GitHub Action)
+    -> normalized payload
+    -> guestCheckinWebhook
+    -> API key check + payload validation
+    -> guestCheckinTrigger
+    -> processGuestCheckinEvents
+    -> backend action (Zoom integration - TODO)
 ```
 
-1. A raw OHIP-style event is loaded from `src/jobs/ohipCheckinEvent.example.json` (or passed programmatically).
-2. `src/jobs/ohipMiddleware.ts` checks event eligibility and transforms it into a normalized check-in payload.
-3. The middleware sends the normalized payload to the Poly webhook URL.
-4. The webhook enforces Poly API key authentication (`requirePolyApiKey: true`).
-5. The security function `validateGuestCheckinEvent` validates required fields and timestamp format.
-6. The trigger `guestCheckinTrigger` forwards valid events to `processOhipEvents`.
-7. `processOhipEvents` receives the event and is the extension point for Zoom API calls.
+1. A raw OHIP event is loaded (from `src/jobs/ohipCheckinEvent.example.json`).
+2. `src/jobs/ohipMiddleware.ts` checks the event and converts it into a standard check-in payload.
+3. The payload is sent to the Poly webhook endpoint.
+4. The webhook checks the Poly API key and runs `validateGuestCheckinEvent`.
+5. If valid, `guestCheckinTrigger` sends the event to `processGuestCheckinEvents`.
+6. `processGuestCheckinEvents` is where backend work happens (Zoom integration planned).
 
 ## Project components
 
@@ -35,7 +33,7 @@ OHIP event (raw)
 - `src/webhooks/guestCheckinWebhook.ts`: Public webhook contract and security settings.
 - `src/serverFunctions/validateGuestCheckinEvent.ts`: Security function for payload validation.
 - `src/triggers/guestCheckinTrigger.ts`: Trigger setup/update against Poly API.
-- `src/serverFunctions/processOhipEvents.ts`: Backend processor (currently logs, ready for Zoom integration).
+- `src/serverFunctions/processGuestCheckinEvents.ts`: Backend processor (currently logs, ready for Zoom integration).
 
 ## Tech stack
 
@@ -102,12 +100,12 @@ By default, this command:
 1. Loads `src/jobs/ohipCheckinEvent.example.json`.
 2. Extracts fields like room number and check-in metadata.
 3. Builds the normalized payload:
-   - `hotelId`
-   - `roomId`
-   - `checkInTime`
-   - `reservationId` (optional)
-   - `eventId` (optional)
-   - `source`
+    - `hotelId`
+    - `roomId`
+    - `checkInTime`
+    - `reservationId` (optional)
+    - `eventId` (optional)
+    - `source`
 4. Sends it to `POLY_WEBHOOK_URL` using your API key.
 
 ## Webhook payload contract
@@ -154,21 +152,21 @@ Expected response:
 - Validation: enforced by `validateGuestCheckinEvent` security function.
 - Minimum required fields: `hotelId`, `roomId`, `checkInTime`.
 
-Invalid payloads fail security validation and are not forwarded to `processOhipEvents`.
+Invalid payloads fail security validation and are not forwarded to `processGuestCheckinEvents`.
 
 ## Deployment and automation
 
 - `deploy.yml`:
-  - Runs tests on push to `main`.
-  - Deploys Poly resources.
-  - Executes `npm run setup:trigger` to ensure trigger wiring.
+    - Runs tests on push to `main`.
+    - Deploys Poly resources.
+    - Executes `npm run setup:trigger` to ensure trigger wiring.
 - `send-test-ohip-event.yml`:
-  - Manual workflow (`workflow_dispatch`).
-  - Runs `npm run ohip:send` with repository secrets.
+    - Manual workflow (`workflow_dispatch`).
+    - Runs `npm run ohip:send` with repository secrets.
 
 ## Current backend status
 
-`processOhipEvents` currently logs incoming events. This is the place to implement production backend behavior, such as:
+`processGuestCheckinEvents` currently logs incoming events. This is the place to implement production backend behavior, such as:
 
 - room-to-device lookup
 - Zoom API request composition

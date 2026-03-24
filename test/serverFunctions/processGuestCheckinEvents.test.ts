@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
-import { processOhipEvents } from "../../src/serverFunctions/processOhipEvents";
+import { processGuestCheckinEvents } from "../../src/serverFunctions/processGuestCheckinEvents";
 
-describe("processOhipEvents", () => {
+describe("processGuestCheckinEvents", () => {
     it("should log the received OHIP event payload", async () => {
         const consoleLogSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
@@ -12,7 +12,7 @@ describe("processOhipEvents", () => {
             clinicId: "67890",
         };
 
-        await processOhipEvents(mockEventPayload);
+        await processGuestCheckinEvents(mockEventPayload);
 
         expect(consoleLogSpy).toHaveBeenCalledWith("Received OHIP event:", mockEventPayload);
 

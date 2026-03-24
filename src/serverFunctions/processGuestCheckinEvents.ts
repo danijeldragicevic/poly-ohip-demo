@@ -1,10 +1,9 @@
-// Poly deployed @ 2026-03-24T13:35:36.260Z - demo.ohip.processOhipEvents - https://na1.polyapi.io/canopy/polyui/collections/server-functions/87990c3e-00c5-4909-8af9-6b5d9b07403f - 58932fb8
 import { PolyServerFunction } from "polyapi";
 
 // PolyAPI configuratoin
 export const polyConfig: PolyServerFunction = {
     context: "demo.ohip",
-    name: "processOhipEvents",
+    name: "processGuestCheckinEvents",
     description: "Process incoming OHIP events and send update to the Zoom API.",
     visibility: "TENANT",
     logsEnabled: true,
@@ -16,7 +15,7 @@ export const polyConfig: PolyServerFunction = {
  * @param {any} eventPayload - Payload of the incoming OHIP event. The structure may vary, so it's typed as 'any' for flexibility.
  * @returns {Promise<void>}
  */
-export async function processOhipEvents(eventPayload: any): Promise<void> {
+export async function processGuestCheckinEvents(eventPayload: any): Promise<void> {
     console.log("Received OHIP event:", eventPayload);
 
     //TODO implement processing logic here...

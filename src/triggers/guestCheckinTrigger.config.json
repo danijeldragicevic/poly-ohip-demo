@@ -6,7 +6,7 @@
     },
     "destination": {
         "serverFunctionContext": "demo.ohip",
-        "serverFunctionName": "processOhipEvents"
+        "serverFunctionName": "processGuestCheckinEvents"
     },
     "waitForResponse": false,
     "enabled": true
