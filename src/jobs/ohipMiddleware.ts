@@ -105,10 +105,10 @@ function transformToPolyCheckinEvent(event: OhipCheckinEvent, hotelId: string): 
 
 async function postToPolyWebhook(payload: PolyCheckinEvent): Promise<void> {
     const webhookUrl = getEnv("POLY_WEBHOOK_URL");
-    const webhookApiKey = (process.env.POLY_WEBHOOK_API_KEY ?? process.env.POLY_API_KEY ?? "").trim();
+    const webhookApiKey = (process.env.POLY_API_KEY_PROD ?? process.env.POLY_API_KEY ?? "").trim();
 
     if (!webhookApiKey) {
-        throw new Error("Missing required environment variable: POLY_WEBHOOK_API_KEY (or POLY_API_KEY).");
+        throw new Error("Missing required environment variable: POLY_API_KEY_PROD (or POLY_API_KEY).");
     }
 
     // TODO add retry logic here...

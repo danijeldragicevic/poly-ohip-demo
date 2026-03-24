@@ -24,5 +24,5 @@ jobs:
               env:
                   OHIP_HOTEL_ID: ${{ secrets.OHIP_HOTEL_ID }}
                   POLY_WEBHOOK_URL: ${{ secrets.POLY_WEBHOOK_URL }}
-                  POLY_WEBHOOK_API_KEY: ${{ secrets.POLY_WEBHOOK_API_KEY }}
+                  POLY_API_KEY_PROD: ${{ secrets.POLY_API_KEY_PROD }}
               run: npm run ohip:send
