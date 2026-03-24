@@ -1,0 +1,13 @@
+{
+    "name": "guestCheckinTrigger",
+    "source": {
+        "webhookContext": "demo.ohip",
+        "webhookName": "guestCheckinWebhook"
+    },
+    "destination": {
+        "serverFunctionContext": "demo.ohip",
+        "serverFunctionName": "processOhipEvents"
+    },
+    "waitForResponse": true,
+    "enabled": true
+}
