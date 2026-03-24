@@ -8,6 +8,6 @@
         "serverFunctionContext": "demo.ohip",
         "serverFunctionName": "processOhipEvents"
     },
-    "waitForResponse": true,
+    "waitForResponse": false,
     "enabled": true
 }
