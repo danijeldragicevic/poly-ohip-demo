@@ -1,3 +1,4 @@
+// Poly deployed @ 2026-03-24T16:19:14.132Z - demo.ohip.processGuestCheckinEvents - https://na1.polyapi.io/canopy/polyui/collections/server-functions/ef042071-64d0-4241-ae85-ab0cfdc8ed5f - 59804039
 import { PolyServerFunction } from "polyapi";
 
 // PolyAPI configuratoin
